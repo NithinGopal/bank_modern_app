@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+import { motion } from 'framer-motion'
+import { navBarVariants, navLinkVariants } from '../framerVariants'
 import { close, logo, menu } from '../assets'
 import { navLinks } from '../constants'
 
@@ -6,20 +8,32 @@ const Navbar = () => {
   const [toggle, setToggle] = useState(false)
   return (
     <nav className='w-full flex py-6 justify-between items-center navbar'>
-      <img src={logo} alt="hoobank" className='w-[124px] h-[32px]' />
+      <motion.img 
+        src={logo} 
+        alt="hoobank" 
+        className='w-[124px] h-[32px]' 
+        variants={navLinkVariants} 
+        whileHover='hover' 
+      />
 
-      <ul className='list-none sm:flex hidden justify-end items-center flex-1'>
+      <motion.ul 
+        className='list-none sm:flex hidden justify-end items-center flex-1' 
+        variants={navBarVariants} 
+        initial='hidden' 
+        animate='visible' 
+      >
         {navLinks.map((navLink, index) => (
-          <li key={navLink.id} 
+          <motion.li key={navLink.id} 
+            variants={navLinkVariants} whileHover='hover' 
             className={`font-poppins font-normal cursor-pointer text-[16px] text-white 
               ${index === navLinks.length - 1 ? 'mr-0' : 'mr-10'}`}
           >
             <a href={`#${navLink.id}`}>
               {navLink.title}
             </a>
-          </li>
+          </motion.li>
         ))}
-      </ul>
+      </motion.ul>
       <div className='sm:hidden flex flex-1 justify-end items-center'>
         <img 
           src={toggle ? close : menu } alt="navMenu" 
